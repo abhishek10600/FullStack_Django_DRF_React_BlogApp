@@ -31,7 +31,7 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    str(os.environ.get("ALLOWED_HOST_URL"))
+    os.environ.get("ALLOWED_HOST_URL")
 ]
 
 
