@@ -1,0 +1,15 @@
+env
+
+backend/.env
+
+backend/account/__pycache__
+
+backend/backend/__pycache__
+
+backend/blog/__pycache__
+
+backend/category/__pycache__
+
+backend/comment/__pycache__
+
+frontend/node_modules
