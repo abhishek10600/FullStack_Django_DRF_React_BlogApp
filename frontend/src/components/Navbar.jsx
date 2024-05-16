@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { useState } from "react";
 
@@ -9,20 +9,35 @@ const Navbar = () => {
   };
   return (
     <div className="text-white flex items-center justify-between h-24 px-4 md:mx-auto md:max-w-[1240px]">
-      <Link className="text-3xl w-full font-bold" to="/">
-        <h1>Project</h1>
-      </Link>
+      <NavLink
+        to="/"
+        className={({ isActive }) =>
+          `text-4xl w-full font-bold hover:text-blue-300 ${
+            isActive ? "text-blue-300" : "text-white"
+          }`
+        }
+      >
+        LALA
+      </NavLink>
       <ul className="md:flex md:gap-20 md:text-xl hidden">
-        <Link className="" to="/register">
-          <h1>Register</h1>
-        </Link>
-        <Link className="" to="/login">
-          <h1>Login</h1>
-        </Link>
+        <NavLink
+          to="/register"
+          className={({ isActive }) =>
+            `hover:text-blue-300 ${isActive ? "text-blue-300" : "text-white"}`
+          }
+        >
+          Register
+        </NavLink>
+        <NavLink
+          className={({ isActive }) =>
+            `hover:text-blue-300 ${isActive ? "text-blue-300" : "text-white"}`
+          }
+          to="/login"
+        >
+          Login
+        </NavLink>
         <button>
-          <Link>
-            <h1>Logout</h1>
-          </Link>
+          <Link>Logout</Link>
         </button>
       </ul>
       {/* Condition to show the menu and close button in mobile devices */}
@@ -42,16 +57,37 @@ const Navbar = () => {
         }
       >
         <ul className="flex flex-col gap-10 text-xl">
-          <Link className="border-b border-gray-500 py-2" to="/">
+          <NavLink
+            className={({ isActive }) =>
+              `border-b border-gray-500 py-2 ${
+                isActive ? "text-blue-300" : "text-white"
+              }`
+            }
+            to="/"
+          >
             <h1>Home</h1>
-          </Link>
+          </NavLink>
           <div className="flex flex-col gap-10 text-xl">
-            <Link className="border-b border-gray-500 py-2" to="/login">
+            <NavLink
+              className={({ isActive }) =>
+                `border-b border-gray-500 py-2 ${
+                  isActive ? "text-blue-300" : "text-white"
+                }`
+              }
+              to="/login"
+            >
               Login
-            </Link>
-            <Link className="border-b border-gray-500 py-2" to="/register">
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                `border-b border-gray-500 py-2 ${
+                  isActive ? "text-blue-300" : "text-white"
+                }`
+              }
+              to="/register"
+            >
               Register
-            </Link>
+            </NavLink>
           </div>
           <button className="border-b border-gray-500 py-2 flex">
             <h1>Logout</h1>
