@@ -2,11 +2,19 @@ import { Link, NavLink } from "react-router-dom";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { logout } from "../store/authSlice";
+import { useDispatch } from "react-redux";
 
 const Navbar = () => {
-  const authStatus = useSelector((state) => state.auth.state);
-  console.log(authStatus);
+  const dispatch = useDispatch();
   const [showNavMenu, setShowNavMenu] = useState(false);
+  const authStatus = useSelector((state) => state.auth.status);
+
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    dispatch(logout());
+  };
+
   const toggleMenu = () => {
     setShowNavMenu(!showNavMenu);
   };
@@ -23,25 +31,35 @@ const Navbar = () => {
         LALA
       </NavLink>
       <ul className="md:flex md:gap-20 md:text-xl hidden">
-        <NavLink
-          to="/register"
-          className={({ isActive }) =>
-            `hover:text-blue-300 ${isActive ? "text-blue-300" : "text-white"}`
-          }
-        >
-          Register
-        </NavLink>
-        <NavLink
-          className={({ isActive }) =>
-            `hover:text-blue-300 ${isActive ? "text-blue-300" : "text-white"}`
-          }
-          to="/login"
-        >
-          Login
-        </NavLink>
-        <button>
-          <Link>Logout</Link>
-        </button>
+        {!authStatus && (
+          <>
+            <NavLink
+              to="/register"
+              className={({ isActive }) =>
+                `hover:text-blue-300 ${
+                  isActive ? "text-blue-300" : "text-white"
+                }`
+              }
+            >
+              Register
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                `hover:text-blue-300 ${
+                  isActive ? "text-blue-300" : "text-white"
+                }`
+              }
+              to="/login"
+            >
+              Login
+            </NavLink>
+          </>
+        )}
+        {authStatus && (
+          <button onClick={handleLogout}>
+            <Link>Logout</Link>
+          </button>
+        )}
       </ul>
       {/* Condition to show the menu and close button in mobile devices */}
       <div onClick={toggleMenu} className="block md:hidden">
@@ -71,30 +89,39 @@ const Navbar = () => {
             <h1>Home</h1>
           </NavLink>
           <div className="flex flex-col gap-10 text-xl">
-            <NavLink
-              className={({ isActive }) =>
-                `border-b border-gray-500 py-2 ${
-                  isActive ? "text-blue-300" : "text-white"
-                }`
-              }
-              to="/login"
-            >
-              Login
-            </NavLink>
-            <NavLink
-              className={({ isActive }) =>
-                `border-b border-gray-500 py-2 ${
-                  isActive ? "text-blue-300" : "text-white"
-                }`
-              }
-              to="/register"
-            >
-              Register
-            </NavLink>
+            {!authStatus && (
+              <>
+                <NavLink
+                  className={({ isActive }) =>
+                    `border-b border-gray-500 py-2 ${
+                      isActive ? "text-blue-300" : "text-white"
+                    }`
+                  }
+                  to="/login"
+                >
+                  Login
+                </NavLink>
+                <NavLink
+                  className={({ isActive }) =>
+                    `border-b border-gray-500 py-2 ${
+                      isActive ? "text-blue-300" : "text-white"
+                    }`
+                  }
+                  to="/register"
+                >
+                  Register
+                </NavLink>
+              </>
+            )}
           </div>
-          <button className="border-b border-gray-500 py-2 flex">
-            <h1>Logout</h1>
-          </button>
+          {authStatus && (
+            <button
+              onClick={handleLogout}
+              className="border-b border-gray-500 py-2 flex"
+            >
+              <h1>Logout</h1>
+            </button>
+          )}
         </ul>
       </div>
     </div>

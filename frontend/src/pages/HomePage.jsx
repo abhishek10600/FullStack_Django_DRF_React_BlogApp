@@ -2,8 +2,11 @@ import BlogCard from "../components/HomeComponents/BlogCard";
 import BlogHeader from "../components/HomeComponents/BlogHeader";
 import CategoryHeaders from "../components/HomeComponents/CategoryHeaders";
 import CreatePostButton from "../components/HomeComponents/CreatePostButton";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
+  const authStatus = useSelector((state) => state.auth.status);
   const postData = [
     {
       id: 1,
@@ -69,7 +72,15 @@ const HomePage = () => {
       <div className="blogs">
         <div className="flex my-10 px-4 justify-between items-center">
           <BlogHeader />
-          <CreatePostButton />
+          {authStatus && <CreatePostButton />}
+          {!authStatus && (
+            <Link
+              to="/login"
+              className="bg-red-500 md:text-xl md:px-4 md:py-2 md:rounded-xl text-sm py-1 px-2 rounded-lg"
+            >
+              Login To Create Your Blogs
+            </Link>
+          )}
         </div>
         <div className="blog-container flex flex-col gap-10 px-4 my-4">
           {postData.map((item) => (
