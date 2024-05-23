@@ -21,12 +21,13 @@ const RegisterForm = () => {
     ev.preventDefault();
     if (password === confirmPassword && password !== "") {
       try {
+        setLoading(true);
         const data = await registerService(userName, email, password);
-        console.log(data.token.access_token);
         if (data) {
           localStorage.setItem("authToken", data.token.access_token);
           const userData = await getCurrentUser(data.token.access_token);
           if (userData) {
+            setLoading(false);
             dispatch(login(userData));
             navigate("/");
           }
@@ -37,6 +38,7 @@ const RegisterForm = () => {
     } else {
       alert("Password and confirm password do not match.");
     }
+    setLoading(false);
   };
 
   return (
@@ -76,7 +78,7 @@ const RegisterForm = () => {
         Already have an account ?
       </Link>
       <button type="submit" className="bg-blue-500 md:py-4 md:px-4 py-2 px-2">
-        Create account
+        {loading ? "Loading..." : "Create account"}
       </button>
     </form>
   );

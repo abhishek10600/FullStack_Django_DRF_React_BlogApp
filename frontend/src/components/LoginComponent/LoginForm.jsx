@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login as loginService, getCurrentUser } from "../../api/authService";
@@ -18,11 +18,13 @@ const LoginForm = () => {
       alert("username and password cannot be empty");
     }
     try {
+      setLoading(true);
       const data = await loginService(userName, password);
       if (data) {
         localStorage.setItem("authToken", data.access);
         const userData = await getCurrentUser(data.access);
         if (userData) {
+          setLoading(false);
           dispatch(login(userData));
           navigate("/");
         }
@@ -30,6 +32,7 @@ const LoginForm = () => {
     } catch (error) {
       console.log(error);
     }
+    setLoading(false);
   };
 
   return (
@@ -56,8 +59,12 @@ const LoginForm = () => {
       <Link to="/register" className="text-gray-400">
         Do not have an account ?
       </Link>
-      <button type="submit" className="bg-blue-500 md:py-4 md:px-4 py-2 px-2">
-        Login
+      <button
+        type="submit"
+        disabled={loading}
+        className="bg-blue-500 md:py-4 md:px-4 py-2 px-2 flex justify-center items-center"
+      >
+        {loading ? "Loading..." : "Login"}
       </button>
     </form>
   );

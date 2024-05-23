@@ -28,7 +28,7 @@ const Navbar = () => {
           }`
         }
       >
-        LALA
+        OpenBlog
       </NavLink>
       <ul className="md:flex md:gap-20 md:text-xl hidden">
         {!authStatus && (
