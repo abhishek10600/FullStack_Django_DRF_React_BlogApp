@@ -32,8 +32,6 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     os.environ.get("ALLOWED_HOST_URL"),
-    'localhost',
-    '127.0.0.1'
 ]
 
 

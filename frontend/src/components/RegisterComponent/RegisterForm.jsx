@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { register as registerService } from "../../api/authService";
+import {
+  register as registerService,
+  getCurrentUser,
+} from "../../api/authService";
 import { login } from "../../store/authSlice";
 
 const RegisterForm = () => {
@@ -21,8 +24,12 @@ const RegisterForm = () => {
         const data = await registerService(userName, email, password);
         console.log(data.token.access_token);
         if (data) {
-          dispatch(login(data.token.access_token));
-          navigate("/");
+          localStorage.setItem("authToken", data.token.access_token);
+          const userData = await getCurrentUser(data.token.access_token);
+          if (userData) {
+            dispatch(login(userData));
+            navigate("/");
+          }
         }
       } catch (error) {
         console.log(error);

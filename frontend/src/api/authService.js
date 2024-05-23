@@ -19,3 +19,16 @@ export const login = async (username, password) => {
         console.log("authService::login::error", error)
     }
 }
+
+export const getCurrentUser = async (authToken) => {
+    try {
+        const res = await axios.get(`${config.backend_url}account/current_user/`, {
+            headers: {
+                Authorization: `Bearer ${authToken}`
+            }
+        })
+        return res.data
+    } catch (error) {
+        console.log("authService::getCurrentUser::error", error)
+    }
+}

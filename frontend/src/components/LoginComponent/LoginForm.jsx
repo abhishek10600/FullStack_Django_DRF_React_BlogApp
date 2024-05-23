@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { login as loginService } from "../../api/authService";
+import { login as loginService, getCurrentUser } from "../../api/authService";
 import { login } from "../../store/authSlice";
 
 const LoginForm = () => {
@@ -20,8 +20,12 @@ const LoginForm = () => {
     try {
       const data = await loginService(userName, password);
       if (data) {
-        dispatch(login(data.access));
-        navigate("/");
+        localStorage.setItem("authToken", data.access);
+        const userData = await getCurrentUser(data.access);
+        if (userData) {
+          dispatch(login(userData));
+          navigate("/");
+        }
       }
     } catch (error) {
       console.log(error);
