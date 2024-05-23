@@ -13,3 +13,5 @@ backend/category/__pycache__
 backend/comment/__pycache__
 
 frontend/node_modules
+
+frontend/.env

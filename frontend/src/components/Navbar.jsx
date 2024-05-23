@@ -1,8 +1,11 @@
 import { Link, NavLink } from "react-router-dom";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
+  const authStatus = useSelector((state) => state.auth.state);
+  console.log(authStatus);
   const [showNavMenu, setShowNavMenu] = useState(false);
   const toggleMenu = () => {
     setShowNavMenu(!showNavMenu);
