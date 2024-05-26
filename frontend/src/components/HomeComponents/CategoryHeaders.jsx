@@ -10,7 +10,6 @@ const CategoryHeaders = () => {
   }, [dispatch]);
   const categoryData = useSelector((state) => state.category.categories);
   const categoryLoading = useSelector((state) => state.category.isLoading);
-  console.log(categoryData);
   return (
     <div className="md:px-4 md:grid md:grid-cols-5 md:gap-8 md:my-4 px-4 grid grid-cols-3 gap-4 text-sm">
       {!categoryLoading &&

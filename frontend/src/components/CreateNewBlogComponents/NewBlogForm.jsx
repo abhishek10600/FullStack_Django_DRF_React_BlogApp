@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { createNewBlog } from "../../api/blogService";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 const NewBlogForm = () => {
   const navigate = useNavigate();
@@ -25,9 +26,8 @@ const NewBlogForm = () => {
           category
         );
         if (blogs) {
-          console.log(blogs);
+          toast.success("Blog created successfully.");
           setLoading(false);
-          //   dispatch(addNewBlog(blogs));
           navigate("/");
         }
       } catch (error) {
@@ -69,7 +69,6 @@ const NewBlogForm = () => {
           </option>
         ))}
       </select>
-      <p>{category}</p>
       <button type="submit" className="bg-blue-500 md:py-4 text-black py-3">
         {loading ? "Loading..." : "Post"}
       </button>

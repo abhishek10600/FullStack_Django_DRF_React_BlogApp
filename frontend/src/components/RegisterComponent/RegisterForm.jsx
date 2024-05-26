@@ -6,6 +6,7 @@ import {
   getCurrentUser,
 } from "../../api/authService";
 import { login } from "../../store/authSlice";
+import toast from "react-hot-toast";
 
 const RegisterForm = () => {
   const navigate = useNavigate();
@@ -27,6 +28,7 @@ const RegisterForm = () => {
           localStorage.setItem("authToken", data.token.access_token);
           const userData = await getCurrentUser(data.token.access_token);
           if (userData) {
+            toast.success("Account created successfully.");
             setLoading(false);
             dispatch(login(userData));
             navigate("/");

@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login as loginService, getCurrentUser } from "../../api/authService";
 import { login } from "../../store/authSlice";
+import { toast } from "react-hot-toast";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -24,6 +25,7 @@ const LoginForm = () => {
         localStorage.setItem("authToken", data.access);
         const userData = await getCurrentUser(data.access);
         if (userData) {
+          toast.success("Logged in successfully.");
           setLoading(false);
           dispatch(login(userData));
           navigate("/");

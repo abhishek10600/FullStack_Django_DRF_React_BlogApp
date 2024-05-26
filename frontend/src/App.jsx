@@ -9,6 +9,8 @@ import { useEffect } from "react";
 import { login, logout } from "./store/authSlice";
 import { getCurrentUser } from "./api/authService";
 import ProtectedRoutes from "./components/ProtectedRoutes";
+import { Toaster } from "react-hot-toast";
+import BlogPage from "./pages/BlogPage";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -29,12 +31,14 @@ const App = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/blog/:id" element={<BlogPage />} />
 
         {/* Protected Routes that allows only logged in user to access */}
         <Route element={<ProtectedRoutes />}>
           <Route path="/new-blog" element={<CreateNewBlogPage />} />
         </Route>
       </Routes>
+      <Toaster />
     </>
   );
 };
