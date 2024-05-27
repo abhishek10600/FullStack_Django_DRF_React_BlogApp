@@ -36,3 +36,33 @@ export const getBlog = async (blog_id) => {
         console.log("blogService::getBlog::error", error)
     }
 }
+
+export const updateBlog = async (authToken, blogId, blog_title, blog_description, category) => {
+    try {
+        const res = await axios.put(`${config.backend_url}blog/blog_detail/${blogId}/`, {
+            blog_title,
+            blog_description,
+            category
+        }, {
+            headers: {
+                Authorization: `Bearer ${authToken}`
+            }
+        })
+        return res.data
+    } catch (error) {
+        console.log("blogService::updateBlog::error", error)
+    }
+}
+
+export const deleteBlog = async (authToken, blogId) => {
+    try {
+        const res = await axios.delete(`${config.backend_url}blog/blog_detail/${blogId}`, {
+            headers: {
+                Authorization: `Bearer ${authToken}`
+            }
+        })
+        return res.data;
+    } catch (error) {
+        console.log("blogService::deleteBlog::error", error)
+    }
+}

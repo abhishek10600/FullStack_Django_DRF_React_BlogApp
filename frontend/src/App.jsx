@@ -11,6 +11,7 @@ import { getCurrentUser } from "./api/authService";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import { Toaster } from "react-hot-toast";
 import BlogPage from "./pages/BlogPage";
+import EditBlogPage from "./pages/EditBlogPage";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ const App = () => {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/blog/:id" element={<BlogPage />} />
+        <Route path="/blog-edit/:id" element={<EditBlogPage />} />
 
         {/* Protected Routes that allows only logged in user to access */}
         <Route element={<ProtectedRoutes />}>
