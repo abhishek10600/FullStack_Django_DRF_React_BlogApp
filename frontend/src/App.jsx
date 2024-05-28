@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { login, logout } from "./store/authSlice";
 import { getCurrentUser } from "./api/authService";
 import ProtectedRoutes from "./components/ProtectedRoutes";
+import AdminRoutes from "./components/AdminRoutes";
 import { Toaster } from "react-hot-toast";
 import BlogPage from "./pages/BlogPage";
 import EditBlogPage from "./pages/EditBlogPage";
@@ -21,7 +22,9 @@ const App = () => {
     if (!authToken) {
       dispatch(logout());
     } else {
-      getCurrentUser(authToken).then((userData) => dispatch(login(userData)));
+      getCurrentUser(authToken).then((userData) => {
+        dispatch(login(userData));
+      });
     }
   }, [dispatch]);
 
@@ -40,6 +43,7 @@ const App = () => {
           <Route path="/new-blog" element={<CreateNewBlogPage />} />
         </Route>
       </Routes>
+
       <Toaster />
     </>
   );
